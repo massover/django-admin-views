@@ -1,0 +1,37 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+{% block extrahead %}
+    <script type="text/javascript" src="/admin/jsi18n/"></script>
+    <script type="text/javascript" src="/static/admin/js/core.js"></script>
+    <script type="text/javascript" src="/static/admin/js/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+    {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+        &rsaquo;
+        {{ name }}
+    </div>
+{% endblock %}
+
+{% block content %}
+      <h1>{{ name }}</h1>
+      {{ form.media }}
+      <form action="" method="post">
+          {% csrf_token %}
+
+          {% for fieldset in adminform %}
+              {% include "admin/includes/fieldset.html" %}
+          {% endfor %}
+
+          <div class="submit-row">
+              <input type="submit" value="{% trans "Save" %}"
+                     name="_save"
+                     class="default"
+                     style="text-transform: uppercase;"/>
+          </div>
+      </form>
+{% endblock %}
